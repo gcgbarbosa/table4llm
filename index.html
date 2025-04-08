@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Entrada de dados de tabela</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2rem;
+      }
+      #pasteArea {
+        border: 2px dashed #aaa;
+        padding: 1rem;
+        min-height: 100px;
+        margin-bottom: 1rem;
+        background: #f9f9f9;
+      }
+      #rendered {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        min-height: 50px;
+      }
+      #htmlOutput {
+        width: 100%;
+        height: 150px;
+        font-family: monospace;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+  </head>
+  <body>
+    <h2>Copie a tabela aqui</h2>
+    <div id="pasteArea" contenteditable="true"></div>
+
+    <h2>Pré visualização</h2>
+    <div id="rendered" contenteditable="true"></div>
+
+    <h2>Saída HTML</h2>
+    <textarea id="htmlOutput" readonly></textarea>
+
+    <script>
+      const pasteArea = document.getElementById("pasteArea");
+      const rendered = document.getElementById("rendered");
+      const htmlOutput = document.getElementById("htmlOutput");
+
+      function limparHTML() {
+        const cleanClone = rendered.cloneNode(true);
+
+        const cleanHtml = DOMPurify.sanitize(cleanClone.innerHTML, {
+          FORBID_ATTR: ["style", "class", "id", "height", "width"],
+          FORBID_TAGS: ["div"],
+        });
+
+        htmlOutput.value = cleanHtml.replace(/&nbsp;/g, " ");
+      }
+
+      pasteArea.addEventListener("paste", () => {
+        setTimeout(() => {
+          const html = pasteArea.innerHTML;
+
+          rendered.innerHTML = html;
+          limparHTML();
+
+          pasteArea.innerHTML = "";
+        }, 100);
+      });
+
+      rendered.addEventListener("input", limparHTML);
+    </script>
+  </body>
+</html>

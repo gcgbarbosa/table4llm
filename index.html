@@ -48,8 +48,22 @@
         const cleanClone = rendered.cloneNode(true);
 
         const cleanHtml = DOMPurify.sanitize(cleanClone.innerHTML, {
-          FORBID_ATTR: ["style", "class", "id", "height", "width", "align"],
-          FORBID_TAGS: ["div"],
+          // FORBID_ATTR: ["style", "class", "id", "height", "width", "align"],
+          // FORBID_TAGS: ["div"],
+          ALLOWED_TAGS: [
+            "table",
+            "thead",
+            "tbody",
+            "tfoot",
+            "tr",
+            "td",
+            "th",
+            "colgroup",
+            "col",
+          ],
+          ALLOWED_ATTR: ["rowspan", "colspan", "span"],
+          ALLOW_DATA_ATTR: false,
+          ALLOW_ARIA_ATTR: false,
         });
 
         htmlOutput.value = cleanHtml.replace(/&nbsp;/g, " ");

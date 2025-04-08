@@ -48,7 +48,7 @@
         const cleanClone = rendered.cloneNode(true);
 
         const cleanHtml = DOMPurify.sanitize(cleanClone.innerHTML, {
-          FORBID_ATTR: ["style", "class", "id", "height", "width"],
+          FORBID_ATTR: ["style", "class", "id", "height", "width", "align", "span"],
           FORBID_TAGS: ["div"],
         });
 

@@ -13,8 +13,6 @@ backend for cleaning and sanitizing HTML table data.
 - **HTML Sanitization**: Ensures that only specific tags and attributes are allowed,
   making the output safe and clean.
 
-## Requirements
+## Test
 
-- Python 3.12 or higher
-- Dependencies listed in `pyproject.toml`:
-  - `bleach>=6.2.0`
+You can find the demo [here](https://gcgbarbosa.github.io/table4llm/table-cleaner.html).
